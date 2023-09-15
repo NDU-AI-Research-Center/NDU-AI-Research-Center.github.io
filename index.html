@@ -17,7 +17,7 @@
       padding: 10px;
     }
 
-    .w3-third {
+    .w3-third h3 {
       text-align: center;
       min-height: 90px;
     }
@@ -58,6 +58,11 @@
       width: 10px;
       height: 10px;
       animation: flyingBubbles 10s linear infinite, ease-in-out 5s infinite alternate;
+    }
+
+    canvas {
+      border-radius: 10px; /* Rounded corners */
+      background-color: #3498db; /* Blue color */
     }
   </style>
 </head>
@@ -139,6 +144,7 @@
   <div class="w3-row">
     <!-- Add team member photos and descriptions here -->
     <div class="w3-half">
+      <canvas id="profileCanvas" width="180" height="120"></canvas>
       <img src="placeholder.jpg" alt="Team Member 1" style="width:100%">
       <p>Team Member 1</p>
     </div>
@@ -155,6 +161,47 @@
   <!-- Add news articles or updates here -->
   <p>No news updates available at the moment.</p>
 </div>
+
+<canvas id="profileCanvas" width="180" height="120"></canvas>
+    <script>
+        // Get the canvas element
+        const canvas = document.getElementById('profileCanvas');
+        const context = canvas.getContext('2d');
+
+        // Draw a fancy profile placeholder
+        context.fillStyle = 'white'; // White color for the person's silhouette
+        context.beginPath();
+        context.arc(90, 60, 40, 0, Math.PI * 2);
+        context.fill();
+
+        // Draw a smaller circle for the head
+        context.fillStyle = '#3498db'; // Blue color
+        context.beginPath();
+        context.arc(90, 60, 34, 0, Math.PI * 2);
+        context.fill();
+
+        // Draw the body
+        context.fillStyle = '#3498db'; // Blue color
+        context.fillRect(75, 94, 30, 18);
+
+        // Draw the collar
+        context.fillStyle = '#ffffff'; // White color
+        context.fillRect(75, 100, 30, 6);
+
+        // Draw the eyes
+        context.fillStyle = 'black'; // Black color
+        context.beginPath();
+        context.arc(78, 50, 4, 0, Math.PI * 2);
+        context.fill();
+        context.beginPath();
+        context.arc(102, 50, 4, 0, Math.PI * 2);
+        context.fill();
+
+        // Draw the mouth
+        context.beginPath();
+        context.arc(90, 65, 20, 0.2 * Math.PI, 0.8 * Math.PI);
+        context.stroke();
+    </script>
 
 </body>
 </html>
