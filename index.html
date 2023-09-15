@@ -38,6 +38,27 @@
       background-size: 200% 100%;
       animation: movingAir 10s linear infinite;
     }
+
+    /* Add flying bubbles */
+    @keyframes flyingBubbles {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+
+    .bubble {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      animation: flyingBubbles 10s linear infinite, ease-in-out 5s infinite alternate;
+    }
   </style>
 </head>
 <body>
@@ -51,8 +72,11 @@
 </div>
 
 <!-- Header -->
-<header class="w3-container w3-blue w3-center" style="padding:128px 16px" id="home">
-  <div class="moving-air-bg" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;"></div>
+<header class="w3-container w3-blue w3-center moving-air-bg" style="padding:128px 16px" id="home">
+  <div class="bubble" style="top: 30%; left: 5%; animation-delay: 0s;"></div>
+    <div class="bubble" style="top: 50%; left: 10%; animation-delay: 2s;"></div>
+    <div class="bubble" style="top: 20%; left: 20%; animation-delay: 4s;"></div>
+    
   <h1 class="w3-margin w3-jumbo">Ndejje University - AI Research Center</h1>
   <p class="w3-xlarge">Advancing AI Research and Innovation in Uganda</p>
 </header>
