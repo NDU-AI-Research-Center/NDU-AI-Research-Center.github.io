@@ -95,9 +95,7 @@
 <script type="text/javascript">
   function lookupValue() {
     const regNo = $("#regNo").val();
-
-    // Replace with your lookup function to retrieve the corresponding value
-    const lookupResult = lookupInList(hashedValue);
+    const lookupResult = lookupInList(hashFunction(regNo));
 
     if (lookupResult) {
         alert("Test result for " + regNo + " --- " + lookupResult);
