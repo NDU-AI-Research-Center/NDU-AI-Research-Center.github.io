@@ -82,7 +82,69 @@
 </div>
 
 <hr>
+<div class="w3-container">
+  <h2>Results Test 1</h2>
+  <div class="w3-card w3-margin w3-padding w3-center">
+    <input type="text" id="regNo" placeholder="Enter value">
+    <button onclick="lookupValue()">Lookup</button>
+  </div>
+</div>
 
+<script type="text/javascript">
+  function lookupValue() {
+    const regNo = $("#regNo").val();
+
+    // Replace with your lookup function to retrieve the corresponding value
+    const lookupResult = lookupInList(hashedValue);
+
+    if (lookupResult) {
+        alert("Test result for " + regNo + " --- " + lookupResult);
+    } else {
+        alert("No result found for provided registration number.");
+    }
+}
+
+// Example hashing function (replace with your desired hashing algorithm)
+function hashFunction(value) {
+    let hash = 0;
+    for (let i = 0; i < value.length; i++) {
+        hash = (hash << 5) - hash + value.charCodeAt(i);
+        hash = hash & hash; // Convert to 32-bit integer
+    }
+    return hash;  
+
+}
+
+// Example lookup function (replace with your actual lookup logic)
+function lookupInList(hashedValue) {
+    const lookupList = {
+      "-593464967":	"Initial (True) Score: 2; Final (Scaled) Score:	4",
+      "-1943298856":	"Initial (True) Score:	5.5; Final (Scaled) Score:	10",
+      "-593464840":	"Initial (True) Score:	3.5; Final (Scaled) Score:	7",
+      "-1943296840":	"Initial (True) Score:	3; Final (Scaled) Score:	6",
+      "-87906160":	"Initial (True) Score:	4; Final (Scaled) Score:	8",
+      "-1943295941":	"Initial (True) Score:	3; Final (Scaled) Score:	6",
+      "-1943301644":	"Initial (True) Score:	1; Final (Scaled) Score:	2",
+      "-87906437":	"Initial (True) Score:	1.5; Final (Scaled) Score:	3",
+      "-87906339":	"Initial (True) Score:	2; Final (Scaled) Score:	4",
+      "-1943299813":	"Initial (True) Score:	1; Final (Scaled) Score:	2",
+      "-87906251":	"Initial (True) Score:	3; Final (Scaled) Score:	6",
+      "2040722387":	"Initial (True) Score:	2; Final (Scaled) Score:	4",
+      "-1960844787":	"Initial (True) Score:	0; Final (Scaled) Score:	0",
+      "-1960848385":	"Initial (True) Score:	3.5; Final (Scaled) Score:	7",
+      "-1960845687":	"Initial (True) Score:	1; Final (Scaled) Score:	2",
+      "-163895108":	"Initial (True) Score:	1.5; Final (Scaled) Score:	3",
+      "-163895107":	"Initial (True) Score:	1.5; Final (Scaled) Score:	3",
+      "129511469":	"Initial (True) Score:	5; Final (Scaled) Score:	10"
+
+        // ... more key-value pairs"
+    };
+
+    return lookupList[hashedValue];
+}
+</script>
+
+<hr>
 <!-- Outline Section -->
 <div class="w3-container w3-content w3-padding" id="outline">
   
