@@ -90,17 +90,25 @@
     <input type="text" id="regNo" placeholder="Student registration number">
     <button onclick="lookupValue()" class="w3-btn w3-black">Lookup result</button>
   </div>
-  <div id="result"></div>
+  <div id="result" class="w3-card w3-padding w3-center"></div>
 </div>
 
 <script type="text/javascript">
   function lookupValue() {
     const regNo = $("#regNo").val();
     const lookupResult = lookupInList(hashFunction(regNo));
+    $("#result").removeClass("w3-red");
+    $("#result").removeClass("w3-green");
+
     var result = "No result found for provided registration number."
+   
     if (lookupResult) {
         result = "Test result for " + regNo + " --- " + lookupResult;
+        $("#result").addClass("w3-green");
+    } else {
+        $("#result").addClass("w3-red");
     }
+    
     $("#result").html(result);
 }
 
