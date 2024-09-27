@@ -103,7 +103,7 @@
     var result = "No result found for provided registration number."
    
     if (lookupResult) {
-        result = "Test result for " + regNo + " --- " + lookupResult;
+        result = "Results for " + regNo + " --- " + lookupResult;
         $("#result").addClass("w3-green");
     } else {
         $("#result").addClass("w3-red");
@@ -126,24 +126,26 @@ function hashFunction(value) {
 // Example lookup function (replace with your actual lookup logic)
 function lookupInList(hashedValue) {
     const lookupList = {
-      "-593464967":	"Initial (True) Score: 2; Final (Scaled) Score:	4",
-      "-1943298856":	"Initial (True) Score: 5.5; Final (Scaled) Score:	10",
-      "-593464840":	"Initial (True) Score: 3.5; Final (Scaled) Score:	7",
-      "-1943296840":	"Initial (True) Score: 3; Final (Scaled) Score:	6",
-      "-87906160":	"Initial (True) Score: 4; Final (Scaled) Score:	8",
-      "-1943295941":	"Initial (True) Score: 3; Final (Scaled) Score:	6",
-      "-1943301644":	"Initial (True) Score: 1; Final (Scaled) Score:	2",
-      "-87906437":	"Initial (True) Score: 1.5; Final (Scaled) Score:	3",
-      "-87906339":	"Initial (True) Score: 2; Final (Scaled) Score:	4",
-      "-1943299813":	"Initial (True) Score: 1; Final (Scaled) Score:	2",
-      "-87906251":	"Initial (True) Score: 3; Final (Scaled) Score:	6",
-      "2040722387":	"Initial (True) Score: 2; Final (Scaled) Score:	4",
-      "-1960844787":	"Initial (True) Score: 0; Final (Scaled) Score:	0",
-      "-1960848385":	"Initial (True) Score: 3.5; Final (Scaled) Score:	7",
-      "-1960845687":	"Initial (True) Score: 1; Final (Scaled) Score:	2",
-      "-163895108":	"Initial (True) Score: 1.5; Final (Scaled) Score:	3",
-      "-163895107":	"Initial (True) Score: 1.5; Final (Scaled) Score:	3",
-      "129511469":	"Initial (True) Score: 5; Final (Scaled) Score:	10"
+      '-593464967':'Test 1 (Initial: 2, Final: 4), Coursework 1 (Final: 9)',
+'-1943298856':'Test 1 (Initial: 5.5, Final: 10), Coursework 1 (Final: 5)',
+'-593464840':'Test 1 (Initial: 3.5, Final: 7), Coursework 1 (Final: 4)',
+'-1943296840':'Test 1 (Initial: 3, Final: 6), Coursework 1 (Final: 3)',
+'-87906160':'Test 1 (Initial: 4, Final: 8), Coursework 1 (Final: 5)',
+'-1943295941':'Test 1 (Initial: 3, Final: 6), Coursework 1 (Final: 8)',
+'-1943301644':'Test 1 (Initial: 1, Final: 2), Coursework 1 (Final: 7)',
+'-87906316':'Test 1 (Initial: 1.5, Final: 3), Coursework 1 (Final: 7)',
+'-87906339':'Test 1 (Initial: 2, Final: 4), Coursework 1 (Final: 8)',
+'-1943299813':'Test 1 (Initial: 1, Final: 2), Coursework 1 (Final: 8)',
+'-87906251':'Test 1 (Initial: 3, Final: 6), Coursework 1 (Final: 7)',
+'2040722387':'Test 1 (Initial: 2, Final: 4), Coursework 1 (Final: 6)',
+'-1960844787':'Test 1 (Initial: 0, Final: 0), Coursework 1 (Final: 0)',
+'-1960848385':'Test 1 (Initial: 3.5, Final: 7), Coursework 1 (Final: 0)',
+'-1960845687':'Test 1 (Initial: 1, Final: 2), Coursework 1 (Final: 4)',
+'-163895108':'Test 1 (Initial: 1.5, Final: 3), Coursework 1 (Final: 7)',
+'-163895107':'Test 1 (Initial: 1.5, Final: 3), Coursework 1 (Final: 4)',
+'129511469':'Test 1 (Initial: 5, Final: 10), Coursework 1 (Final: 0)',
+'2040719624':'Test 1 (Initial: 0, Final: 0), Coursework 1 (Final: 5)'
+
 
         // ... more key-value pairs"
     };
