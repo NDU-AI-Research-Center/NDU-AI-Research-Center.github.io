@@ -126,25 +126,26 @@ function hashFunction(value) {
 // Example lookup function (replace with your actual lookup logic)
 function lookupInList(hashedValue) {
     const lookupList = {
-      '-593464967':'Test 1 (Initial: 2, Final: 4), Coursework 1 (Final: 9)',
-'-1943298856':'Test 1 (Initial: 5.5, Final: 10), Coursework 1 (Final: 5)',
-'-593464840':'Test 1 (Initial: 3.5, Final: 7), Coursework 1 (Final: 4)',
-'-1943296840':'Test 1 (Initial: 3, Final: 6), Coursework 1 (Final: 3)',
-'-87906160':'Test 1 (Initial: 4, Final: 8), Coursework 1 (Final: 5)',
-'-1943295941':'Test 1 (Initial: 3, Final: 6), Coursework 1 (Final: 8)',
-'-1943301644':'Test 1 (Initial: 1, Final: 2), Coursework 1 (Final: 7)',
-'-87906316':'Test 1 (Initial: 1.5, Final: 3), Coursework 1 (Final: 7)',
-'-87906339':'Test 1 (Initial: 2, Final: 4), Coursework 1 (Final: 8)',
-'-1943299813':'Test 1 (Initial: 1, Final: 2), Coursework 1 (Final: 8)',
-'-87906251':'Test 1 (Initial: 3, Final: 6), Coursework 1 (Final: 7)',
-'2040722387':'Test 1 (Initial: 2, Final: 4), Coursework 1 (Final: 6)',
-'-1960844787':'Test 1 (Initial: 0, Final: 0), Coursework 1 (Final: 0)',
-'-1960848385':'Test 1 (Initial: 3.5, Final: 7), Coursework 1 (Final: 0)',
-'-1960845687':'Test 1 (Initial: 1, Final: 2), Coursework 1 (Final: 4)',
-'-163895108':'Test 1 (Initial: 1.5, Final: 3), Coursework 1 (Final: 7)',
-'-163895107':'Test 1 (Initial: 1.5, Final: 3), Coursework 1 (Final: 4)',
-'129511469':'Test 1 (Initial: 5, Final: 10), Coursework 1 (Final: 0)',
-'2040719624':'Test 1 (Initial: 0, Final: 0), Coursework 1 (Final: 5)'
+      '-593464967':'Test 1 (Initial: 2, Final: 4), Coursework 1 (Final: 9), Test 2 (Initial: 2.5, Final: 3.5), Coursework 2 (Final: 7) --> Overall Total: 23.5',
+'-1943298856':'Test 1 (Initial: 5.5, Final: 10), Coursework 1 (Final: 5), Test 2 (Initial: 4.5, Final: 5.5), Coursework 2 (Final: 6) --> Overall Total: 26.5',
+'-593464840':'Test 1 (Initial: 3.5, Final: 7), Coursework 1 (Final: 4), Test 2 (Initial: 3.5, Final: 4.5), Coursework 2 (Final: 5) --> Overall Total: 20.5',
+'-1943296840':'Test 1 (Initial: 3, Final: 6), Coursework 1 (Final: 3), Test 2 (Initial: 4.5, Final: 5.5), Coursework 2 (Final: 5) --> Overall Total: 19.5',
+'-87906160':'Test 1 (Initial: 4, Final: 8), Coursework 1 (Final: 5), Test 2 (Initial: 6.5, Final: 7.5), Coursework 2 (Final: 5) --> Overall Total: 25.5',
+'-1943295941':'Test 1 (Initial: 3, Final: 6), Coursework 1 (Final: 8), Test 2 (Initial: 4, Final: 5), Coursework 2 (Final: 10) --> Overall Total: 29',
+'-1943301644':'Test 1 (Initial: 1, Final: 2), Coursework 1 (Final: 7), Test 2 (Initial: 1, Final: 2), Coursework 2 (Final: 5) --> Overall Total: 16',
+'-87906316':'Test 1 (Initial: 1.5, Final: 3), Coursework 1 (Final: 7), Test 2 (Initial: 3.5, Final: 4.5), Coursework 2 (Final: 5) --> Overall Total: 19.5',
+'-87906339':'Test 1 (Initial: 2, Final: 4), Coursework 1 (Final: 8), Test 2 (Initial: 3, Final: 4), Coursework 2 (Final: 5) --> Overall Total: 21',
+'-1943299813':'Test 1 (Initial: 1, Final: 2), Coursework 1 (Final: 8), Test 2 (Initial: 3.5, Final: 4.5), Coursework 2 (Final: 7) --> Overall Total: 21.5',
+'-87906251':'Test 1 (Initial: 3, Final: 6), Coursework 1 (Final: 7), Test 2 (Initial: 3, Final: 4), Coursework 2 (Final: 8) --> Overall Total: 25',
+'2040722387':'Test 1 (Initial: 2, Final: 4), Coursework 1 (Final: 6), Test 2 (Initial: 1.5, Final: 2.5), Coursework 2 (Final: 5) --> Overall Total: 17.5',
+'-1960844787':'Test 1 (Initial: 0, Final: 0), Coursework 1 (Final: 0), Test 2 (Initial: 3, Final: 4), Coursework 2 (Final: 5) --> Overall Total: 9',
+'-1960848385':'Test 1 (Initial: 3.5, Final: 7), Coursework 1 (Final: 0), Test 2 (Initial: 3.5, Final: 4.5), Coursework 2 (Final: 0) --> Overall Total: 11.5',
+'-1960845687':'Test 1 (Initial: 1, Final: 2), Coursework 1 (Final: 4), Test 2 (Initial: 1.5, Final: 2.5), Coursework 2 (Final: 6) --> Overall Total: 14.5',
+'-163895108':'Test 1 (Initial: 1.5, Final: 3), Coursework 1 (Final: 7), Test 2 (Initial: 4, Final: 5), Coursework 2 (Final: 8) --> Overall Total: 23',
+'-163895107':'Test 1 (Initial: 1.5, Final: 3), Coursework 1 (Final: 4), Test 2 (Initial: 1.5, Final: 2.5), Coursework 2 (Final: 7) --> Overall Total: 16.5',
+'129511469':'Test 1 (Initial: 5, Final: 10), Coursework 1 (Final: 0), Test 2 (Initial: 0, Final: 0), Coursework 2 (Final: 0) --> Overall Total: 10',
+'2040719624':'Test 1 (Initial: 0, Final: 0), Coursework 1 (Final: 5), Test 2 (Initial: 0, Final: 0), Coursework 2 (Final: 0) --> Overall Total: 5'
+
 
 
         // ... more key-value pairs"
