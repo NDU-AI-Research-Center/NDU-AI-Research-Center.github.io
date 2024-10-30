@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <title>
+      The 10-day “Leadership DNA” WhatsApp status series
+    </title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+      body { 
+        font-family: Arial; 
+        text-align: center; 
+      }
+      
+      .image-gallery { 
+        display: flex; 
+        flex-wrap: wrap; 
+        justify-content: space-between; 
+      } 
+      
+      .image-container { 
+        min-width: 450px; 
+      } 
+      
+      .image-container img { 
+        width: 100%; 
+        height: auto;
+        transition: filter 0.3s ease-in-out; 
+        padding: 10px; 
+      } 
+      
+      .image-container.blurred img { 
+        filter: blur(5px); 
+      } 
+      
+      .release-date { 
+        position: relative; 
+        bottom: 100px; 
+        left: 0; 
+        right: 0; 
+        text-align: center; 
+        color: white; 
+        font-weight: bold; 
+        font-size: 160%; 
+        padding: 0 50px; 
+        margin: 20px;
+        margin-bottom: -50px; 
+      }
+    </style>
+  </head>
+  
+  <body>
+    <h1>
+      The 10-day “Leadership DNA” WhatsApp status series
+    </h1>
+    <div class="w3-container">
+      <div class="w3-row">
+        <div class="image-container  w3-quarter" data-date="2024-10-30">
+          <img src="images/00-cover.png">
+          <p class="release-date">
+          </p>
+        </div>
+        <div class="image-container  w3-quarter" data-date="2024-10-30">
+          <img src="images/00-intro1.png">
+          <p class="release-date">
+          </p>
+        </div>
+        <div class="image-container  w3-quarter" data-date="2024-10-30">
+          <img src="images/00-intro2.png">
+          <p class="release-date">
+          </p>
+        </div>
+        <div class="image-container w3-quarter" data-date="2024-11-01">
+          <img src="images/01-devotion.png">
+          <p class="release-date">
+          </p>
+        </div>
+        <div class="image-container w3-quarter" data-date="2024-11-02">
+          <img src="images/02-devotion.png">
+          <p class="release-date">
+          </p>
+        </div>
+        <div class="image-container w3-quarter" data-date="2024-11-03">
+          <img src="images/03-devotion.png">
+          <p class="release-date">
+          </p>
+        </div>
+        <div class="image-container w3-quarter" data-date="2024-11-04">
+          <img src="images/04-devotion.png">
+          <p class="release-date">
+          </p>
+        </div>
+        <div class="image-container w3-quarter" data-date="2024-11-05">
+          <img src="images/05-devotion.png">
+          <p class="release-date">
+          </p>
+        </div>
+        <div class="image-container w3-quarter" data-date="2024-11-06">
+          <img src="images/06-devotion.png">
+          <p class="release-date">
+          </p>
+        </div>
+        <div class="image-container w3-quarter" data-date="2024-11-07">
+          <img src="images/07-devotion.png">
+          <p class="release-date">
+          </p>
+        </div>
+        <div class="image-container w3-quarter" data-date="2024-11-08">
+          <img src="images/08-devotion.png">
+          <p class="release-date">
+          </p>
+        </div>
+        <div class="image-container w3-quarter" data-date="2024-11-09">
+          <img src="images/09-devotion.png">
+          <p class="release-date">
+          </p>
+        </div>
+        <div class="image-container w3-quarter" data-date="2024-11-10">
+          <img src="images/10-devotion.png">
+          <p class="release-date">
+          </p>
+        </div>
+      </div>
+    </div>
+    <script>
+      const imageContainers = document.querySelectorAll('.image-container');
+      
+      imageContainers.forEach(container => {
+        const releaseDate = new Date(container.dataset.date);
+        const currentDate = new Date();
+      
+        var releaseDateText = container.querySelector('.release-date');
+      
+        if (currentDate < releaseDate) {
+          container.classList.add('blurred');
+          releaseDateText.textContent = `Releasing on ${releaseDate.toLocaleDateString()}`;
+        } else {
+          releaseDateText.remove()
+        }
+      });
+    </script>
+  </body>
+
+</html>
