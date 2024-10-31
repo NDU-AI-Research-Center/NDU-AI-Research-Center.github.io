@@ -138,6 +138,23 @@
           releaseDateText.remove()
         }
       });
+
+      const images = document.querySelectorAll('img');
+
+images.forEach(image => {
+  image.addEventListener('click', () => {
+    if (image.style.transform === 'scale(2)') {
+      // Reset the image to its original size
+      image.style.transform = 'scale(1)';
+      image.style.position = 'relative';
+    } else {
+      // Double the image size and bring it to the front
+      image.style.transform = 'scale(2)';
+      image.style.position = 'absolute';
+      image.style.zIndex = 100;
+    }
+  });
+});
     </script>
   </body>
 
