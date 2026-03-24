@@ -1,395 +1,1157 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Ndejje University AI Research Center</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NDU AI Research Centre</title>
 
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">  
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+
   <style>
-    /* Add your custom CSS styles here */
-    /* Example: 
-    .feature-box {
-      background-color: #f0f0f0;
-      padding: 20px;
-      text-align: center;
-    }
-    */
-    h2 {
-      color: #03d;
-      font-weight: bold;
-      font-size: 300%;
-    }
-
-    .w3-third, .w3-quarter {
-      padding: 10px;
-    }
-
-    .w3-third h3 {
-      text-align: center;
-      min-height: 90px;
+    /* ─── Design Tokens ─────────────────────────────── */
+    :root {
+      --ink:       #0C1A2E;
+      --ink-soft:  #1E3252;
+      --sky:       #0A7ABF;
+      --sky-light: #E8F4FD;
+      --gold:      #D4A017;
+      --gold-light:#FDF6E3;
+      --sage:      #2A7D5F;
+      --sage-light:#E4F3ED;
+      --white:     #FFFFFF;
+      --off-white: #F7F8FA;
+      --muted:     #6B7C93;
+      --rule:      #DDE3EA;
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'Literata', Georgia, serif;
+      --radius:    10px;
+      --shadow-md: 0 4px 24px rgba(12,26,46,.09);
+      --shadow-lg: 0 12px 48px rgba(12,26,46,.14);
     }
 
-    .profile-picture {
-      width: calc(100% - 40px);
-      max-width: 180px;
-      margin: 20px;
+    /* ─── Reset ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--ink);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: var(--sky); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ─── Navigation ─────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      height: 64px;
+      background: rgba(12,26,46,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.3); }
+    .nav-brand {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--white);
+      letter-spacing: .02em;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-brand span.accent { color: var(--gold); }
+    .nav-links { display: flex; gap: 0; list-style: none; }
+    .nav-links li a {
+      font-family: var(--font-display);
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.7);
+      padding: 0 14px;
+      line-height: 64px;
+      display: block;
+      transition: color .2s;
+    }
+    .nav-links li a:hover { color: var(--gold); text-decoration: none; }
+
+    /* ─── Hero ───────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      background: var(--ink);
+      overflow: hidden;
+      padding: 100px 5vw 80px;
+    }
+    /* Geometric background */
+    .hero-bg {
+      position: absolute; inset: 0; pointer-events: none;
+    }
+    .hero-bg svg { width: 100%; height: 100%; }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 700px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-display);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block; width: 32px; height: 2px;
+      background: var(--gold);
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.12;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,.68);
+      margin-bottom: 36px;
+      max-width: 540px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      font-family: var(--font-display);
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      border-radius: 6px;
+      transition: all .2s;
+      cursor: pointer; border: none;
+    }
+    .btn-primary {
+      background: var(--sky);
+      color: var(--white);
+    }
+    .btn-primary:hover { background: #0868a3; text-decoration: none; color: var(--white); }
+    .btn-outline {
+      background: transparent;
+      color: rgba(255,255,255,.8);
+      border: 1.5px solid rgba(255,255,255,.3);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); text-decoration: none; }
+
+    /* Stats strip */
+    .hero-stats {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+      display: flex;
+      background: rgba(255,255,255,.04);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .hero-stat {
+      flex: 1;
+      padding: 22px 24px;
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+    .hero-stat-label {
+      font-size: .8rem;
+      color: rgba(255,255,255,.5);
+      margin-top: 2px;
     }
 
-    .affiliation-logo {
-      max-width: 170px;
-      max-height: 150px;
-      margin: 10px 20px;
+    /* ─── Section Wrapper ────────────────────────────── */
+    .section { padding: 90px 5vw; }
+    .section-inner { max-width: 1080px; margin: 0 auto; }
+    .section-header { margin-bottom: 56px; }
+    .section-eyebrow {
+      font-family: var(--font-display);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--sky);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+    .section-title em {
+      font-style: normal;
+      color: var(--sky);
+    }
+    .section-desc {
+      margin-top: 14px;
+      max-width: 600px;
+      color: var(--muted);
+      font-size: .96rem;
     }
 
-    #twitter-widget-0 {
-      margin: 15px auto;
+    /* ─── About ──────────────────────────────────────── */
+    #about { background: var(--off-white); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .about-text p {
+      color: #3a4a5c;
+      margin-bottom: 16px;
+    }
+    .about-contact {
+      margin-top: 24px;
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-display);
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--sky);
+    }
+    .about-visual {
+      background: var(--ink);
+      border-radius: var(--radius);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-visual::before {
+      content: '';
+      position: absolute; top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: .08;
+    }
+    .about-pillars {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .pillar {
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .pillar-icon {
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .pillar-text strong {
+      font-family: var(--font-display);
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--white);
       display: block;
     }
-
-     /* Add the animation to create a subtle moving air effect */
-     @keyframes movingAir {
-      0% {
-        background-position: 0 0;
-      }
-      100% {
-        background-position: 100% 0;
-      }
+    .pillar-text span {
+      font-size: .82rem;
+      color: rgba(255,255,255,.55);
     }
 
-    /* Apply the animation to the header background */
-    .moving-air-bg {
-      background-image: linear-gradient(90deg, #00c3ff, #007bff, #00c3ff, #007bff, #00c3ff);
-      background-size: 200% 100%;
-      animation: movingAir 10s linear infinite;
+    /* ─── Research ───────────────────────────────────── */
+    #research { background: var(--white); }
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .research-card {
+      border: 1.5px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      transition: box-shadow .25s, transform .25s, border-color .25s;
+      position: relative; overflow: hidden;
+    }
+    .research-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+      border-color: var(--sky);
+    }
+    .research-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .research-card.c-blue::before  { background: var(--sky); }
+    .research-card.c-gold::before  { background: var(--gold); }
+    .research-card.c-sage::before  { background: var(--sage); }
+    .rc-icon {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 18px;
+    }
+    .c-blue .rc-icon  { background: var(--sky-light);  color: var(--sky); }
+    .c-gold .rc-icon  { background: var(--gold-light); color: var(--gold); }
+    .c-sage .rc-icon  { background: var(--sage-light); color: var(--sage); }
+    .research-card h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--ink);
+    }
+    .research-card p { font-size: .9rem; color: var(--muted); }
+
+    .research-cta {
+      margin-top: 40px;
+      background: linear-gradient(135deg, var(--sky) 0%, #0A5FA3 100%);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .research-cta p {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--white);
+      font-size: 1.05rem;
+      font-style: italic;
     }
 
-    /* Add flying bubbles */
-    @keyframes flyingBubbles {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh);
-        opacity: 0;
-      }
+    /* ─── Prototypes ─────────────────────────────────── */
+    #prototypes { background: var(--ink); }
+    #prototypes .section-title { color: var(--white); }
+    #prototypes .section-eyebrow { color: var(--gold); }
+    #prototypes .section-desc { color: rgba(255,255,255,.55); }
+
+    .proto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .proto-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: background .25s, border-color .25s, transform .25s;
+    }
+    .proto-card:hover {
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.22);
+      transform: translateY(-3px);
+    }
+    .proto-card.featured {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .proto-card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-display);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+    }
+    .badge-new  { background: rgba(212,160,23,.2);  color: var(--gold); }
+    .badge-live { background: rgba(10,122,191,.2);  color: #5BC4F5; }
+    .badge-v2   { background: rgba(42,125,95,.2);   color: #5CD9A8; }
+
+    .proto-body {
+      padding: 30px;
+    }
+    .proto-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .proto-card p { font-size: .88rem; color: rgba(255,255,255,.58); margin-bottom: 12px; }
+    .proto-card a.proto-link {
+      font-family: var(--font-display);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--sky);
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: gap .2s, color .2s;
+    }
+    .proto-card a.proto-link:hover { gap: 10px; text-decoration: none; color: #5BC4F5; }
+
+    /* Featured card highlight panel */
+    .proto-highlight {
+      background: linear-gradient(160deg, var(--sky) 0%, #0A4A8C 100%);
+      padding: 40px 30px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .proto-highlight h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .proto-highlight p { color: rgba(255,255,255,.75); font-size: .9rem; }
+    .proto-pipeline {
+      display: flex; gap: 0; margin: 20px 0; flex-wrap: wrap;
+    }
+    .pipeline-step {
+      background: rgba(255,255,255,.12);
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-family: var(--font-display);
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--white);
+      position: relative;
+      margin-right: 22px;
+    }
+    .pipeline-step::after {
+      content: '→';
+      position: absolute; right: -18px; top: 50%; transform: translateY(-50%);
+      color: var(--gold); font-size: 1rem;
+    }
+    .pipeline-step:last-child { margin-right: 0; }
+    .pipeline-step:last-child::after { display: none; }
+
+    /* AEPAS featured panel (gold) */
+    .proto-highlight.aepas {
+      background: linear-gradient(160deg, #1A3A2A 0%, #0C1A0E 100%);
+      border-left: 4px solid var(--gold);
     }
 
-    .bubble {
-      position: absolute;
-      background-color: rgba(255, 255, 255, 0.7);
+    /* ─── Students ───────────────────────────────────── */
+    #students { background: var(--off-white); }
+    .students-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .advice-card {
+      background: var(--white);
+      border: 1.5px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+    }
+    .advice-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 18px;
+    }
+    .level-badge {
+      display: inline-block;
+      background: var(--sky-light);
+      color: var(--sky);
+      font-family: var(--font-display);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .advice-card p { font-size: .88rem; color: var(--muted); margin-bottom: 12px; }
+    .book-btn {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+      background: var(--ink);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 13px 20px;
+      border-radius: 6px;
+      transition: background .2s;
+    }
+    .book-btn:hover { background: var(--sky); text-decoration: none; color: var(--white); }
+
+    /* ─── Team ───────────────────────────────────────── */
+    #team { background: var(--white); }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .team-card {
+      text-align: center;
+    }
+    .team-img-wrap {
+      width: 110px; height: 110px;
       border-radius: 50%;
-      width: 10px;
-      height: 10px;
-      animation: flyingBubbles 10s linear infinite, ease-in-out 5s infinite alternate;
+      overflow: hidden;
+      margin: 0 auto 14px;
+      border: 3px solid var(--rule);
+      background: var(--off-white);
     }
-    div {
-      text-align: justify;
-      text-justify: inter-word;
-   }
+    .team-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .team-card strong {
+      font-family: var(--font-display);
+      font-size: .92rem;
+      font-weight: 700;
+      display: block;
+      color: var(--ink);
+    }
+    .team-card .role { font-size: .8rem; color: var(--muted); }
+    .team-card .domain {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: .75rem;
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--sky);
+      background: var(--sky-light);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* ─── News / Papers ──────────────────────────────── */
+    #news { background: var(--off-white); }
+    .paper-list { display: flex; flex-direction: column; gap: 20px; }
+    .paper {
+      background: var(--white);
+      border: 1.5px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      display: flex; gap: 20px;
+      align-items: flex-start;
+      transition: box-shadow .2s;
+    }
+    .paper:hover { box-shadow: var(--shadow-md); }
+    .paper-num {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--rule);
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: 32px;
+    }
+    .paper h4 {
+      font-family: var(--font-display);
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .paper a { font-size: .85rem; }
+
+    /* ─── Affiliations ───────────────────────────────── */
+    #affiliations { background: var(--white); }
+    .affiliations-row {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .affiliations-row a img {
+      max-height: 70px;
+      max-width: 160px;
+      filter: grayscale(40%);
+      opacity: .8;
+      transition: filter .2s, opacity .2s;
+    }
+    .affiliations-row a:hover img { filter: grayscale(0); opacity: 1; }
+
+    /* ─── Footer ─────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,.5);
+      text-align: center;
+      padding: 32px 5vw;
+      font-size: .85rem;
+    }
+    footer a { color: rgba(255,255,255,.6); }
+
+    /* ─── Divider ─────────────────────────────────────── */
+    .divider {
+      width: 48px; height: 3px;
+      background: var(--gold);
+      margin: 14px 0 0;
+      border-radius: 2px;
+    }
+
+    /* ─── Animations ──────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp .7s ease both; }
+    .fade-up-2 { animation: fadeUp .7s .15s ease both; }
+    .fade-up-3 { animation: fadeUp .7s .3s ease both; }
+    .fade-up-4 { animation: fadeUp .7s .45s ease both; }
+
+    /* ─── Responsive ──────────────────────────────────── */
+    @media (max-width: 900px) {
+      .about-grid, .students-grid, .proto-card.featured,
+      .proto-grid { grid-template-columns: 1fr; }
+      .proto-card.featured .proto-highlight { order: -1; }
+      .research-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2,1fr); }
+      .nav-links { display: none; }
+      .hero-stats { display: none; }
+      .proto-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
-<!-- Navbar -->
-<div class="w3-bar w3-blue">
-  <a href="#about" class="w3-bar-item w3-button">About</a>
-  <a href="#research" class="w3-bar-item w3-button">Research</a>
-  <a href="#prototypes" class="w3-bar-item w3-button">Prototypes</a>
-  <a href="#students" class="w3-bar-item w3-button">For Students</a>
-  <a href="#team" class="w3-bar-item w3-button">Team</a>
-</div>
+<!-- ── Navigation ──────────────────────────────────────────────────────────── -->
+<nav id="navbar">
+  <div class="nav-brand">
+    <span>NDU</span><span class="accent"> AI</span>&nbsp;Research Centre
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#prototypes">Prototypes</a></li>
+    <li><a href="#students">For Students</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#news">Papers</a></li>
+  </ul>
+</nav>
 
-<!-- Header -->
-<header class="w3-container w3-blue w3-center moving-air-bg" style="padding:128px 16px" id="home">
-  <div class="bubble" style="top: 30%; left: 5%; animation-delay: 0s;"></div>
-    <div class="bubble" style="top: 50%; left: 10%; animation-delay: 7s;"></div>
-    <div class="bubble" style="top: 20%; left: 15%; animation-delay: 4s;"></div>
-    <div class="bubble" style="top: 80%; left: 20%; animation-delay: 5s;"></div>
-    <div class="bubble" style="top: 10%; left: 25%; animation-delay: 3s;"></div>
-    <div class="bubble" style="top: 90%; left: 30%; animation-delay: 8s;"></div>
-    <div class="bubble" style="top: 20%; left: 35%; animation-delay: 1s;"></div>
-    <div class="bubble" style="top: 70%; left: 45%; animation-delay: 10s;"></div>
-    <div class="bubble" style="top: 50%; left: 50%; animation-delay: 2s;"></div>
-    <div class="bubble" style="top: 90%; left: 55%; animation-delay: 9s;"></div>
-    <div class="bubble" style="top: 30%; left: 65%; animation-delay: 10s;"></div>
-    <div class="bubble" style="top: 40%; left: 70%; animation-delay: 4s;"></div>
-    <div class="bubble" style="top: 30%; left: 80%; animation-delay: 0s;"></div>
-    <div class="bubble" style="top: 50%; left: 85%; animation-delay: 2s;"></div>
-    <div class="bubble" style="top: 20%; left: 95%; animation-delay: 10s;"></div>
-    
-    <img src="logos/NDU-AI-RC-Logo.png" alt="NDU AI Research Center Logo" style="width:250px">  
-  <!-- <h1 class="w3-margin w3-jumbo">AI Research Center- Ndejje University</h1> -->
-  <p class="w3-xlarge">Advancing AI Research and Innovation in Uganda</p>
+<!-- ── Hero ────────────────────────────────────────────────────────────────── -->
+<header class="hero" id="home">
+  <!-- Geometric SVG background -->
+  <div class="hero-bg" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="rg1" cx="80%" cy="30%" r="60%">
+          <stop offset="0%" stop-color="#0A7ABF" stop-opacity=".18"/>
+          <stop offset="100%" stop-color="#0C1A2E" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="rg2" cx="10%" cy="80%" r="50%">
+          <stop offset="0%" stop-color="#D4A017" stop-opacity=".12"/>
+          <stop offset="100%" stop-color="#0C1A2E" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="1440" height="900" fill="url(#rg1)"/>
+      <rect width="1440" height="900" fill="url(#rg2)"/>
+      <!-- geometric lines -->
+      <line x1="720" y1="0" x2="1440" y2="600" stroke="#0A7ABF" stroke-opacity=".07" stroke-width="1.5"/>
+      <line x1="900" y1="0" x2="1440" y2="400" stroke="#0A7ABF" stroke-opacity=".05" stroke-width="1"/>
+      <line x1="0"   y1="300" x2="600" y2="900" stroke="#D4A017" stroke-opacity=".06" stroke-width="1.5"/>
+      <circle cx="1100" cy="180" r="220" fill="none" stroke="#0A7ABF" stroke-opacity=".07" stroke-width="1"/>
+      <circle cx="1100" cy="180" r="140" fill="none" stroke="#0A7ABF" stroke-opacity=".05" stroke-width="1"/>
+      <circle cx="300"  cy="700" r="160" fill="none" stroke="#D4A017" stroke-opacity=".06" stroke-width="1"/>
+      <!-- dots grid -->
+      <g fill="#ffffff" fill-opacity=".04">
+        <circle cx="800" cy="100" r="2.5"/><circle cx="860" cy="100" r="2.5"/><circle cx="920" cy="100" r="2.5"/><circle cx="980" cy="100" r="2.5"/><circle cx="1040" cy="100" r="2.5"/><circle cx="1100" cy="100" r="2.5"/>
+        <circle cx="800" cy="160" r="2.5"/><circle cx="860" cy="160" r="2.5"/><circle cx="920" cy="160" r="2.5"/><circle cx="980" cy="160" r="2.5"/><circle cx="1040" cy="160" r="2.5"/><circle cx="1100" cy="160" r="2.5"/>
+        <circle cx="800" cy="220" r="2.5"/><circle cx="860" cy="220" r="2.5"/><circle cx="920" cy="220" r="2.5"/><circle cx="980" cy="220" r="2.5"/><circle cx="1040" cy="220" r="2.5"/><circle cx="1100" cy="220" r="2.5"/>
+        <circle cx="800" cy="280" r="2.5"/><circle cx="860" cy="280" r="2.5"/><circle cx="920" cy="280" r="2.5"/><circle cx="980" cy="280" r="2.5"/><circle cx="1040" cy="280" r="2.5"/><circle cx="1100" cy="280" r="2.5"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow fade-up">Ndejje University · Faculty of Science &amp; Computing</div>
+    <h1 class="fade-up-2">Advancing <em>AI Research</em> and Innovation in Uganda</h1>
+    <p class="hero-sub fade-up-3">
+      We build AI-driven solutions to real challenges — from curriculum intelligence 
+      and classroom tools to power-grid stability and clean water access.
+    </p>
+    <div class="hero-actions fade-up-4">
+      <a href="#prototypes" class="btn btn-primary">Explore Prototypes</a>
+      <a href="mailto:aluyima@ndejjeuniversity.ac.ug" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">6</div>
+      <div class="hero-stat-label">Live Prototypes</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">3</div>
+      <div class="hero-stat-label">Research Domains</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">3</div>
+      <div class="hero-stat-label">Published Papers</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">2026</div>
+      <div class="hero-stat-label">NCHE Exhibition</div>
+    </div>
+  </div>
 </header>
 
-<!-- About Section -->
-<div class="w3-container w3-content w3-padding" id="about">
-  <h2>About Us</h2>
-  
-  <p>
-    The AI Research Center of the Ndejje University (NDU) is dedicated to deliver state-of-the-art AI driven solutions to local challenges in Uganda and its communities. 
-    It is facilitated by the NDU's faculty of Science and Computing in cooperation with the christian German-based organization Coworkers.
-  </p>
-  <p>
-    Get in touch - we are always open for exchange or cooperations!
-    <br><br>
-    <a href="mailto:aluyima@ndejjeuniversity.ac.ug">aluyima@ndejjeuniversity.ac.ug</a></p>
-  </p>
-
-</div>
-
-<hr>
-<!-- Follow-us Sectoin -->
-<!-- <div class="w3-container w3-row w3-content w3-padding"  id="follow us">
-  <h2>Follow Us</h2>
-  <p>Keep updated and follow us on Social Media to recieve news and other information about AI and related topics! <b>@ndejjeAI</b></p>
-  <div class="w3-col w3-half w3-center">
-    <img src="logos/WhatsApp.svg.webp" alt="Whatsapp Logo" width="150px">
-    <a href="https://whatsapp.com/channel/0029Va7jjRlGE56g4OjFd40x" target="_blank" class="w3-button w3-block w3-green">Follow us on WhatsApp</a>
+<!-- ── About ────────────────────────────────────────────────────────────────── -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-eyebrow">About Us</div>
+        <h2 class="section-title">Solving Local Problems<br>with <em>Intelligent Systems</em></h2>
+        <div class="divider"></div>
+        <br>
+        <p>
+          The AI Research Centre of Ndejje University (NDU) is dedicated to delivering state-of-the-art 
+          AI-driven solutions to local challenges in Uganda and its communities. It is facilitated by 
+          the NDU Faculty of Science and Computing in cooperation with the German-based organisation Coworkers.
+        </p>
+        <p>
+          We are always open for exchange and cooperation — whether you are a researcher, student, 
+          institution, or industry partner.
+        </p>
+        <a href="mailto:aluyima@ndejjeuniversity.ac.ug" class="about-contact">
+          ✉ aluyima@ndejjeuniversity.ac.ug
+        </a>
+      </div>
+      <div class="about-visual">
+        <div class="about-pillars">
+          <div class="pillar">
+            <div class="pillar-icon" style="background:rgba(10,122,191,.2);">⚡</div>
+            <div class="pillar-text">
+              <strong>Machine Learning in Energy</strong>
+              <span>Optimising power distribution &amp; predicting outages</span>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon" style="background:rgba(212,160,23,.2);">🎓</div>
+            <div class="pillar-text">
+              <strong>AI in Education</strong>
+              <span>Competency-based tools for Uganda's new curriculum</span>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon" style="background:rgba(42,125,95,.2);">💬</div>
+            <div class="pillar-text">
+              <strong>Chatbot-based Service Delivery</strong>
+              <span>AI agents for WASH, health &amp; public services</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="w3-col w3-half w3-center">
-    <img src="logos/X-Logo.jpg" alt="X Logo" width="150px" style="margin:33px 0px">
-    <a href="https://twitter.com/ndejjeAI" target="_blank" class="w3-button w3-block w3-black">Follow us on X</a>
-  </div>
-</div>
-<hr>  -->
+</section>
 
-<!-- Research Section -->
-<div class="w3-container w3-content w3-padding" id="research">
-  <h2>Research Directions</h2>
-  <div class="w3-row">
-    <div class="w3-third">
-      <div class="feature-box">
+<!-- ── Research ──────────────────────────────────────────────────────────────── -->
+<section class="section" id="research">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Research Directions</div>
+      <h2 class="section-title">Three Pillars of<br><em>Applied AI Research</em></h2>
+    </div>
+    <div class="research-grid">
+
+      <div class="research-card c-blue">
+        <div class="rc-icon">⚡</div>
         <h3>Machine Learning in Energy Grid Stability</h3>
-        <p>We do research to apply machine learning approaches to optimize power distribution, reduce energy wastage, and ensure reliable electricity supply, contributing to economic development and improved living standards in the country.</p>
+        <p>We apply machine learning approaches to optimise power distribution, reduce energy wastage, 
+        and ensure reliable electricity supply — contributing to economic development and improved 
+        living standards across Uganda.</p>
       </div>
-    </div>
-    <div class="w3-third">
-      <div class="feature-box">
+
+      <div class="research-card c-gold">
+        <div class="rc-icon">🎓</div>
         <h3>AI in Education</h3>
-        <p>We aim to create innovative solution of AI in education that hold the potential to revolutionize Uganda's education system by providing personalized learning experiences, improving teacher-student ratios, and enhancing educational access and quality across the country.</p>
+        <p>We create innovative AI solutions that hold the potential to revolutionise Uganda's education 
+        system by providing personalised learning experiences, improving teacher–student ratios, 
+        and enhancing educational access and quality.</p>
       </div>
-    </div>
-    <div class="w3-third">
-      <div class="feature-box">
+
+      <div class="research-card c-sage">
+        <div class="rc-icon">💬</div>
         <h3>Chatbot-based Service Delivery</h3>
-        <p>We research on Chatbots that overcome geographical barriers, increase accessibility to essential services, and enhance the efficiency and convenience of public service interactions, thereby improving the overall quality of life for Ugandan citizens.</p>
+        <p>We research chatbots that overcome geographical barriers, increase accessibility to essential 
+        services, and enhance the efficiency and convenience of public service interactions for 
+        Ugandan citizens.</p>
+      </div>
+
+    </div>
+
+    <div class="research-cta">
+      <p><i>Interested in a Final Year Project at the AI Research Centre?</i></p>
+      <a href="mailto:aluyima@ndejjeuniversity.ac.ug" class="btn btn-primary">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Prototypes ────────────────────────────────────────────────────────────── -->
+<section class="section" id="prototypes">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Current Prototypes</div>
+      <h2 class="section-title" style="color:var(--white);">AI Tools <em style="color:var(--gold);">Built for Uganda</em></h2>
+      <p class="section-desc">From curriculum intelligence to clean water — practical AI for real-world impact.</p>
+    </div>
+
+    <div class="proto-grid">
+
+      <!-- ── AEPAS 2.0 — NEW featured ──────────────────── -->
+      <div class="proto-card featured">
+        <div class="proto-highlight aepas">
+          <span class="proto-card-badge badge-new">✦ New · NCHE 2026</span>
+          <h3>AEPAS 2.0</h3>
+          <p style="color:rgba(255,255,255,.8); font-size:.95rem; margin-bottom:10px;">
+            AI-Powered Economic Alignment &amp; Skills System
+          </p>
+          <p>
+            Audits university curricula against Uganda's National Development Plan (NDP III/IV) 
+            targets and NCHE/IUCEA benchmarks using Semantic AI. Acts as a 
+            "Market-Intelligence Layer" for faculties — identifying courses that are 
+            academically strong but economically outdated.
+          </p>
+          <div class="proto-pipeline">
+            <div class="pipeline-step">SCAN</div>
+            <div class="pipeline-step">ALIGN</div>
+            <div class="pipeline-step">OPTIMISE</div>
+            <div class="pipeline-step">IMPACT REPORT</div>
+          </div>
+          <p style="font-size:.82rem; color:rgba(255,255,255,.5);">
+            Generates an "Economic Readiness Certificate" — a Market-Alignment Score for every programme.
+          </p>
+        </div>
+        <div class="proto-body" style="display:flex; flex-direction:column; justify-content:center;">
+          <h3 style="font-size:1rem;">Strategic Impact for Uganda</h3>
+          <p><strong style="color:rgba(255,255,255,.85);">Accelerated Market-Readiness</strong><br>
+          Ensures graduates possess action-oriented skills required to drive the economy.</p>
+          <p><strong style="color:rgba(255,255,255,.85);">Data-Driven Innovation</strong><br>
+          Identifies innovation gaps where the University can introduce high-demand modules.</p>
+          <p><strong style="color:rgba(255,255,255,.85);">Economic Accountability</strong><br>
+          Provides a market-alignment score for every programme, showing exactly how NDU 
+          contributes to national transformation.</p>
+          <p style="margin-top:6px; color:rgba(255,255,255,.35); font-size:.8rem; font-style:italic;">
+            Powered by RAG · Cohere AI · FAISS · ReportLab
+          </p>
+        </div>
+      </div>
+
+      <!-- ── LPSG v2 — NEW ──────────────────────────────── -->
+      <div class="proto-card featured" style="border-color: rgba(42,125,95,.3);">
+        <div class="proto-highlight" style="background: linear-gradient(160deg, #1E4A38 0%, #0C1E14 100%); border-left: 4px solid #5CD9A8;">
+          <span class="proto-card-badge badge-v2">Version 2 · NCHE 2026</span>
+          <h3>NDU Lesson Plan &amp; Scheme of Work Generator</h3>
+          <p style="color:rgba(255,255,255,.8); font-size:.95rem; margin-bottom:10px;">
+            AI-powered classroom preparation for Ugandan educators
+          </p>
+          <p>
+            A first-of-its-kind AI tool developed by the NDU AI Research Centre and the Faculty 
+            of Education. Version 2 expands from S1 to full O-Level and A-Level coverage, aligned 
+            to Uganda's latest NCDC competency-based curriculum.
+          </p>
+          <div class="proto-pipeline" style="margin-top:16px;">
+            <div class="pipeline-step" style="background:rgba(92,217,168,.12); color:#5CD9A8;">INPUT</div>
+            <div class="pipeline-step" style="background:rgba(92,217,168,.12); color:#5CD9A8;">RETRIEVE</div>
+            <div class="pipeline-step" style="background:rgba(92,217,168,.12); color:#5CD9A8;">GENERATE</div>
+            <div class="pipeline-step" style="background:rgba(92,217,168,.12); color:#5CD9A8;">DOWNLOAD</div>
+          </div>
+          <p style="font-size:.82rem; color:rgba(255,255,255,.5); margin-top:10px;">
+            RAG over NCDC syllabi &amp; textbooks · Outputs formatted .docx files
+          </p>
+        </div>
+        <div class="proto-body" style="display:flex; flex-direction:column; justify-content:center;">
+          <h3 style="font-size:1rem;">Driving Economic Transformation</h3>
+          <p><strong style="color:rgba(255,255,255,.85);">Workforce Efficiency</strong><br>
+          Dramatically reduces the administrative burden on teachers, freeing time for instruction.</p>
+          <p><strong style="color:rgba(255,255,255,.85);">Institutional Quality</strong><br>
+          Enables Directors of Studies to monitor instructional planning and identify gaps with ease.</p>
+          <p><strong style="color:rgba(255,255,255,.85);">National Scalability</strong><br>
+          Following presentations to the Ministry of Education and Sports, the tool is poised for nationwide impact.</p>
+          <a href="https://ndu-lesson-plan-generator.ew.r.appspot.com/" target="_blank" class="proto-link" style="margin-top:16px;">
+            Open live prototype →
+          </a>
+        </div>
+      </div>
+
+      <!-- ── WASHtsApp ───────────────────────────────────── -->
+      <div class="proto-card">
+        <div class="proto-body">
+          <span class="proto-card-badge badge-live">● Live</span>
+          <h3>WASHtsApp</h3>
+          <p>A RAG-powered WhatsApp chatbot that answers questions about WASH principles — 
+          safe water, sanitation, and hygiene. Accessible in rural Uganda via WhatsApp number 
+          <strong style="color:rgba(255,255,255,.7);">+256 760 299775</strong>.</p>
+          <p>Prevents waterborne disease spread and empowers communities to maintain clean water sources, 
+          free of charge.</p>
+          <a href="/projects/washtsapp.html" target="_blank" class="proto-link">Learn more →</a>
+        </div>
+      </div>
+
+      <!-- ── Attendance ─────────────────────────────────── -->
+      <div class="proto-card">
+        <div class="proto-body">
+          <span class="proto-card-badge badge-live">● Live</span>
+          <h3>NDU Lecture Attendance Management System</h3>
+          <p>GPS-geofenced attendance tracking replacing paper-based registers. Uses Google Maps 
+          location technology to verify student presence, improving accountability for both 
+          students and lecturers.</p>
+          <a href="https://ndu.pythonanywhere.com/" target="_blank" class="proto-link">Open system →</a>
+        </div>
+      </div>
+
+      <!-- ── UMEME ───────────────────────────────────────── -->
+      <div class="proto-card">
+        <div class="proto-body">
+          <span class="proto-card-badge" style="background:rgba(212,160,23,.15); color:var(--gold);">Research</span>
+          <h3>UMEME Power Outage Duration Prediction</h3>
+          <p>Predicts how long a reported power outage will last using a neural network trained on 
+          four weeks of scraped UMEME data. 95% test-set accuracy; 80% of predictions are within 
+          one hour of actual resolution time.</p>
+          <a href="https://simonkloker.pythonanywhere.com/dashboard" target="_blank" class="proto-link">View dashboard →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── For Students ───────────────────────────────────────────────────────────── -->
+<section class="section" id="students">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Services to Students</div>
+      <h2 class="section-title">AI Advice &amp; <em>Final Year Projects</em></h2>
+      <p class="section-desc">
+        Whether you're just getting started or deep in a technical challenge, 
+        our researchers are here to guide you.
+      </p>
+    </div>
+    <div class="students-grid">
+      <div class="advice-card">
+        <h3>AI Advice Sessions</h3>
+        <div class="level-badge">Level 1 · 30 min</div>
+        <p>Planning to use AI in a project and need guidance on which technology or algorithm to use? 
+        Want to discuss feasibility or just know how to get started? Book a 30-minute slot — 
+        describe your topic when requesting so we can assign a suitable advisor.</p>
+        <div class="level-badge">Level 2 · 60 min</div>
+        <p>Already conducting an AI-based project and facing a technical problem? Book a 60-minute 
+        deep-dive with one of our experts. Describe your topic so we can match you to the best 
+        person for your challenge.</p>
+        <a href="https://forms.gle/CuVJvH1t9s678MR5A" target="_blank" class="book-btn">
+          Book your appointment →
+        </a>
+      </div>
+      <div class="advice-card">
+        <h3>Final Year Projects</h3>
+        <p>We offer Final Year Project opportunities across all three research domains:</p>
+        <ul style="padding-left:18px; color:var(--muted); font-size:.88rem; line-height:2;">
+          <li>Machine Learning in Energy Grid Stability</li>
+          <li>AI in Education</li>
+          <li>Chatbot-based Service Delivery</li>
+        </ul>
+        <p style="margin-top:14px;">
+          Contact any member of the research team (see Team section) for details on 
+          available topics and how to apply.
+        </p>
+        <a href="mailto:aluyima@ndejjeuniversity.ac.ug" class="book-btn" style="background:var(--sage);">
+          Express Interest →
+        </a>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="w3-row w3-center" style="background: #00c3ff; padding: 30px 0px;">
-    <h3><i>Interested in a Final Year Project at AI Research Center?</i></h3>
-    <p>Then get in touch with us at <a href="mailto:aluyima@ndejjeuniversity.ac.ug" class="w3-button w3-black">aluyima@ndejjeuniversity.ac.ug</a> or any member of the research groups (see <a href="#team">Team</a> below).</p>
-  </div>
-</div>
+<!-- ── Team ───────────────────────────────────────────────────────────────────── -->
+<section class="section" id="team">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Our Team</div>
+      <h2 class="section-title">The Researchers Behind<br><em>the Innovation</em></h2>
+    </div>
+    <div class="team-grid">
 
-<!-- Prototypes Section -->
-<div class="w3-container w3-content w3-padding" id="prototypes">
-  <h2>Current Prototypes</h2>
-  <div class="w3-row">
-    <div class="w3-quarter"><img src="https://cdn-icons-png.flaticon.com/512/2421/2421271.png" alt="Prototype" style="width:100%">
-    </div>
-    <div class="w3-threequarter">
-          
-        <h4><strong>NDU Lesson Plan Generator</strong></h4>
-      <p>
-        Our <a href="https://ndu-lesson-plan-generator.ew.r.appspot.com/" target="_blank">NDU Lesson Plan Generator</a> 
-        utilizes artificial intelligence to suggest lesson plans tailored for Ugandan secondary schools and aligned with 
-        official government-accredited textbooks. 
-      </p>
-      <p>We are currently at a prototype level and serve all subjects of S1 level. Using a Retrieval Augmented Generation 
-        approach, we developed a prototype that generates customized lesson plans based on the government-accredited 
-        textbooks. This helps teachers create lesson plans more efficiently and with better quality, ensuring they 
-        are fully aligned the new curriculum and the competence-based learning approach.</p>
+      <div class="team-card">
+        <div class="team-img-wrap">
+          <img src="/persons/RobertSetekera.jpg" alt="Dr. Robert Setekera" onerror="this.style.display='none'">
+        </div>
+        <strong>Dr. Robert Setekera</strong>
+        <div class="role">Dean</div>
+        <span class="domain">AI in Education</span>
+      </div>
 
-      <h4><strong>WASHtsApp</strong></h4>
-      <p>
-        Our <a href="/projects/washtsapp.html" target="_blank">WASHtsApp</a> chatbot utilizes artificial intelligence to communicate via WhatsApp and answer questions regarding the WASH Principles.
-      </p>
-      <p>Clean water access is still a problem in rural areas in Uganda. In many cases this is also due to a lack of knowledge how to maintain water quality and WASH principles in general.
-        WASHtsApp provides answers to questions about water quality and general WASH principle and helps to improve the health and well-being of communities. It is free to use. Just text to it via WhatsApp: +256 760 299775
-      </p>
-      <p>
-        Why does it matter? WASHtsApp can help to prevent the spread of waterborne diseases and improve sanitation practices in rural areas. Furthermore, it 
-        empowers individuals to take control of their own health and well-being by providing them with the knowledge and resources they need to maintain clean water sources and practice good hygiene. 
-      </p>
-      
-        <h4><strong>NDU Lecture Attendance Management System</strong></h4>
-      <p>
-        Our <a href="https://ndu.pythonanywhere.com/" target="_blank">NDU Lecture Attendance Management System</a> is a 
-        cutting-edge technological solution designed to streamline and enhance attendance tracking for both virtual and 
-        physical lectures.
-      </p>
-      <p>This innovative system aims to replace traditional paper-based methods with a user-friendly mobile application, 
-        significantly improving efficiency and accuracy. For physical lectures, it leverages GPS location technology 
-        (integrated with Google Maps) to precisely verify student presence. By digitizing attendance and incorporating 
-        location-based verification, the system introduces increased accountability for both students and lecturers, while 
-        its intuitive interface offers flexibility in how attendance is recorded and managed. This project provides a robust 
-        and modern tool to support academic administration within the Ugandan context and beyond, adapting to diverse 
-        learning environments.</p>
-      
-      <h4><strong>UMEME Power Outage Duration Prediction</strong></h4>
-      <p>
-        Our <a href="https://simonkloker.pythonanywhere.com/dashboard" target="_blank">UMEME Power Outage Duration Prediction</a> predicts how long it will take for a reported Power Outage Alert to be fixed.
-        Predictions are made using a Neural Network trained on 4 weeks of webscraped data form UMEME homepage. Test-set Accuracy is at 95%, which results in an prediciton error that is in 80% of the cases
-        below one hour. Currently we are evaluating the accuracy on unseen data.
-      </p>  
-      <p>
-        Why does it matter? Given you own a company and have your staff on site when power suddenly disappears. Now you need to decide whether you send your staff home or keep it on site.
-        This small tool allows you to get an estimation whether the outage will rather take only 1 hour our 15 hours and you can make an informed decision. 
-        Small solution, but with immediate value to community.
-      </p>
-    </div>
-  </div>
-</div>
+      <div class="team-card">
+        <div class="team-img-wrap">
+          <img src="/persons/MatthewBazanya.jpg" alt="Matthew Bazanya" onerror="this.style.display='none'">
+        </div>
+        <strong>Matthew Bazanya</strong>
+        <div class="role">Lecturer, Researcher</div>
+        <span class="domain">Energy Grid Stability</span>
+      </div>
 
+      <div class="team-card">
+        <div class="team-img-wrap">
+          <img src="/persons/AlexLuyima.jpg" alt="Alex Luyima" onerror="this.style.display='none'">
+        </div>
+        <strong>Alex Luyima</strong>
+        <div class="role">Lecturer, Researcher</div>
+        <span class="domain">Chatbot Service Delivery</span>
+      </div>
 
-<!-- Services to students -->
-<div class="w3-container w3-row w3-content w3-padding"  id="students">
-  <h2>Services to Students</h2>
-  <p>Besides following our Social Media Channels and our free Keynotes (starting December 2023), there are more options to get in touch!</p>
-  <div class="w3-col w3-half w3-padding">
-    <h3>AI Advise</h3>
-    <h4>Level 1</h4>
-    <p>You are planning to use AI in a project and need guidance which technology or algorithm to use. You want to discuss general feasability and get some basic guidance.
-      Or you just want to know how to get started?
-      <b>Book a 30 min slot with one of our research group members.</b> Make sure you describe your topic already while requesting a slot, so we can assign you a suitable advisor.
-    </p>
-    <h4>Level 2</h4>
-    <p>You are already conducting an AI based project and are facing a technical problem or question? Your question is not trivial and you need someone experienced to have a look on it?
-      <b>Book a 60 min slot with one of our experts.</b> Make sure you describe your topic already while requesting a slot, so we can assign you the best expert for your problem.
-    </p>
-    <hr>
-    <a href="https://forms.gle/CuVJvH1t9s678MR5A" target="_blank" class="w3-button w3-block w3-black">Book your Appointment with an AI-Expert here!</a>
-  </div>
-  
-  <div class="w3-col w3-half w3-padding">
-    <h3>Final Year Projects</h3>
-    <p>
-      We offer Final Year Projects related to our three Research Domains. If you are interested contact any member of the research groups (see <a href="#team">Team</a> below) for details.
-    </p>
-  </div>
-  
-</div>
+      <div class="team-card">
+        <div class="team-img-wrap">
+          <img src="/persons/TwahaKateete.jpg" alt="Twaha Kateete" onerror="this.style.display='none'">
+        </div>
+        <strong>Twaha Kateete</strong>
+        <div class="role">Lecturer, Researcher</div>
+        <span class="domain">AI in Education</span>
+      </div>
 
-<!-- Team Section -->
-<div class="w3-container w3-content w3-padding" id="team">
-  <h2>Our Team</h2>
-  <div class="w3-row">
-    <!-- Add team member photos and descriptions here -->
+      <div class="team-card">
+        <div class="team-img-wrap">
+          <img src="/persons/BukoliHerbertson.jpg" alt="Bukoli Herbertson" onerror="this.style.display='none'">
+        </div>
+        <strong>Bukoli Herbertson</strong>
+        <div class="role">Lecturer, Researcher</div>
+        <span class="domain">AI in Education</span>
+      </div>
 
-    <div class="w3-quarter">
-      <img src="/persons/RobertSetekera.jpg" alt="Dr. Robert Setekera" class="profile-picture">
-      <p><b>Dr. Robert Setekera</b></p>
-      <p>Dean<br>
-        <i>AI in Education</i></p>
-    </div>
-    <div class="w3-quarter">
-      <img src="/persons/MatthewBazanya.jpg" alt="Matthew Bazanya" class="profile-picture">
-      <p><b>Matthew Bazanya</b></p>
-      <p>Lecturer, Researcher<br>
-        <i>Machine Learning in Energy Grid Stability</i></p>
-    </div>
-    <!-- <div class="w3-quarter">
-      <img src="/persons/StephenYiga.jpg" alt="Stephen Yiga" class="profile-picture">
-      <p><b>Stephen Yiga</b></p>
-      <p>Lecturer, Researcher<br>
-        <i>Machine Learning in Energy Grid Stability</i></p>
-    </div> -->
-    <div class="w3-quarter">
-      <img src="/persons/AlexLuyima.jpg" alt="Alex Luyima" class="profile-picture">
-      <p><b>Alex Luyima</b></p>
-      <p>Lecturer, Researcher<br>
-        <i>Chatbot-based Service Delivery</i></p>
-    </div>
-    <!-- <div class="w3-quarter">
-      <img src="https://www.women-in-tech-africa-summit.com/hubfs/CORE-Maddox/images/PersonPlaceholder.png" alt="Rodgers Kimera" class="profile-picture">
-      <p><b>Rodgers Kimera</b></p>
-      <p>Researcher, Member at NDU Directorate of ICT<br>
-        <i>Chatbot-based Service Delivery</i></p>
-    </div>
-    <div class="w3-quarter">
-      <img src="https://www.women-in-tech-africa-summit.com/hubfs/CORE-Maddox/images/PersonPlaceholder.png" alt="Datsun Bazzeketa" class="profile-picture">
-      <p><b>Datsun Bazzeketa</b></p>
-      <p>Lecturer, Researcher<br>
-        <i>Chatbot-based Service Delivery</i></p>
-    </div> -->
-    <div class="w3-quarter">
-      <img src="/persons/TwahaKateete.jpg" alt="Twaha Kateete" class="profile-picture">
-      <p><b>Twaha Kateete</b></p>
-      <p>Lecturer, Researcher<br>
-        <i>AI in Education</i></p>
-    </div>
-    <!-- <div class="w3-quarter">
-      <img src="https://www.women-in-tech-africa-summit.com/hubfs/CORE-Maddox/images/PersonPlaceholder.png" alt="Cathryn Ruth Kwagala" class="profile-picture">
-      <p><b>Cathryn Ruth Kwagala</b></p>
-      <p>Lecturer, Researcher<br>
-        <i>AI in Education</i></p>
-    </div> -->
-  </div>
-  <div class="w3-row">
-    <div class="w3-quarter">
-      <img src="/persons/BukoliHerbertson.jpg" alt="Bukoli Herbertson" class="profile-picture">
-      <p><b>Bukoli Herbertson</b></p>
-      <p>Lecturer, Researcher<br>
-        <i>AI in Education</i></p>
-    </div>
-    <div class="w3-quarter">
-      <img src="/persons/SimonKloker.jpg" alt="Dr. Simon Kloker" class="profile-picture">
-      <p><b>Dr. Simon Kloker</b></p>
-      <p>Consultant<br>
-        <i>All Research Domains</i></p>
+      <div class="team-card">
+        <div class="team-img-wrap">
+          <img src="/persons/SimonKloker.jpg" alt="Dr. Simon Kloker" onerror="this.style.display='none'">
+        </div>
+        <strong>Dr. Simon Kloker</strong>
+        <div class="role">Consultant</div>
+        <span class="domain">All Research Domains</span>
+      </div>
+
     </div>
   </div>
-</div>
+</section>
 
-<!-- News Section -->
-<div class="w3-container w3-content w3-padding" id="news">
-  <h2>Published Research Papers</h2>
-  <!-- Add news articles or updates here -->
-  <div class="news-item">
-    <h4>Working paper "New Curriculum, New Chance -- Retrieval Augmented Generation for Lesson Planning in Ugandan Secondary Schools. Prototype Quality Evaluation" presented at Ndejje University Second Annual Research Dissemination Symposium 2024</h4>
-    <p>Available here: <a href="https://arxiv.org/abs/2408.07542" target="_blank">https://arxiv.org/abs/2408.07542</a></p>
-  </div>
-<hr>
-  <div class="news-item">
-    <h4>Research paper "I don't trust you (anymore)! -- The effect of students' LLM use on Lecturer-Student-Trust in Higher Education" will be published soon at "The Uganda Higher Education Review"</h4>
-    <p>A author's manuscript is available here: <a href="https://arxiv.org/abs/2406.14871" target="_blank">https://arxiv.org/abs/2406.14871</a></p>
-  </div>
-<hr>
-  <div class="news-item">
-    <h4>Working Paper "WASHtsApp-A RAG-powered WhatsApp Chatbot for Supporting Rural African Clean Water Access, Sanitation and Hygiene (November, 2024)" - DOI: 10.48550/arXiv.2411.02850 </h4>
-    <p>Available here: <a href="https://arxiv.org/abs/2411.02850" target="_blank">https://arxiv.org/abs/2411.02850</a></p>
-  </div>
-</div>
+<!-- ── Published Papers ───────────────────────────────────────────────────────── -->
+<section class="section" id="news">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Published Research</div>
+      <h2 class="section-title">Papers &amp; <em>Working Papers</em></h2>
+    </div>
+    <div class="paper-list">
 
-<!-- Affiliations Section -->
-<div class="w3-container w3-content w3-padding" id="affiliations">
-  <h2>Affiliations</h2>
-  <div class="w3-center">
-    <a href="https://ndejjeuniversity.ac.ug/" target="_blank"><img src="/logos/LogoNDU2.png" alt="NDU Logo" class="affiliation-logo"></a>
-    <a href="https://coworkers.de/" target="_blank"><img src="https://coworkers.de/typo3conf/ext/yt_coworkers/Resources/Public/Images/cow-logo-dark.svg" alt="Coworkers Logo" class="affiliation-logo"></a>  
-    <a href="https://gdsc.community.dev/ndejje-university/" target="_blank"><img src="/logos/gdsc.jpg" alt="Google Developer Student Club Logo" class="affiliation-logo" style="max-width: 250px;"></a>  
-    <a href="https://churchofuganda.org/" target="_blank"><img src="/logos/CoU.jpg" alt="Church of Uganda Logo" class="affiliation-logo"></a> 
-  </div>
-  </div>
+      <div class="paper">
+        <div class="paper-num">01</div>
+        <div>
+          <h4>New Curriculum, New Chance — Retrieval Augmented Generation for Lesson Planning in Ugandan Secondary Schools. Prototype Quality Evaluation</h4>
+          <p style="font-size:.83rem; color:var(--muted);">Presented at Ndejje University Second Annual Research Dissemination Symposium 2024</p>
+          <a href="https://arxiv.org/abs/2408.07542" target="_blank">arxiv.org/abs/2408.07542 →</a>
+        </div>
+      </div>
 
-<!-- Footer -->
-<footer class="w3-container w3-center w3-padding" style="background-color: #333; color: #fff;">
-  <!-- <p><i>Fear of God brings Knowledge and Wisdom.</i></p> -->
-  <p>&copy; 2023 Ndejje University. All Rights Reserved.</p>
+      <div class="paper">
+        <div class="paper-num">02</div>
+        <div>
+          <h4>I don't trust you (anymore)! — The effect of students' LLM use on Lecturer-Student-Trust in Higher Education</h4>
+          <p style="font-size:.83rem; color:var(--muted);">To be published in <em>The Uganda Higher Education Review</em></p>
+          <a href="https://arxiv.org/abs/2406.14871" target="_blank">arxiv.org/abs/2406.14871 →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-num">03</div>
+        <div>
+          <h4>WASHtsApp — A RAG-powered WhatsApp Chatbot for Supporting Rural African Clean Water Access, Sanitation and Hygiene</h4>
+          <p style="font-size:.83rem; color:var(--muted);">November 2024 · DOI: 10.48550/arXiv.2411.02850</p>
+          <a href="https://arxiv.org/abs/2411.02850" target="_blank">arxiv.org/abs/2411.02850 →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Affiliations ────────────────────────────────────────────────────────────── -->
+<section class="section" id="affiliations" style="padding: 60px 5vw;">
+  <div class="section-inner">
+    <div class="section-header" style="margin-bottom: 32px; text-align:center;">
+      <div class="section-eyebrow" style="justify-content:center;">Affiliations</div>
+    </div>
+    <div class="affiliations-row">
+      <a href="https://ndejjeuniversity.ac.ug/" target="_blank">
+        <img src="/logos/LogoNDU2.png" alt="Ndejje University">
+      </a>
+      <a href="https://coworkers.de/" target="_blank">
+        <img src="https://coworkers.de/typo3conf/ext/yt_coworkers/Resources/Public/Images/cow-logo-dark.svg" alt="Coworkers">
+      </a>
+      <a href="https://gdsc.community.dev/ndejje-university/" target="_blank">
+        <img src="/logos/gdsc.jpg" alt="Google Developer Student Club" style="max-width:180px;">
+      </a>
+      <a href="https://churchofuganda.org/" target="_blank">
+        <img src="/logos/CoU.jpg" alt="Church of Uganda">
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────────────── -->
+<footer>
+  <p style="margin-bottom:6px;">
+    <strong style="color:rgba(255,255,255,.8);">NDU AI Research Centre</strong> · 
+    Faculty of Science &amp; Computing · Ndejje University, Uganda
+  </p>
+  <p>
+    <a href="mailto:aluyima@ndejjeuniversity.ac.ug">aluyima@ndejjeuniversity.ac.ug</a> &nbsp;·&nbsp;
+    &copy; 2026 Ndejje University. All Rights Reserved.
+  </p>
 </footer>
 
+<script>
+  // Navbar scroll shadow
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Intersection Observer for subtle reveal animations on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.research-card, .proto-card, .team-card, .paper, .advice-card')
+    .forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity .5s ease, transform .5s ease';
+      observer.observe(el);
+    });
+</script>
 
 </body>
 </html>
