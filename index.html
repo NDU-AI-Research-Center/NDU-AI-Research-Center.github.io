@@ -12,7 +12,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 
   <style>
     /* ─── Design Tokens ─────────────────────────────── */
@@ -29,7 +29,7 @@
       --off-white: #F7F8FA;
       --muted:     #6B7C93;
       --rule:      #DDE3EA;
-      --font-display: 'Syne', sans-serif;
+      --font-display: 'Plus Jakarta Sans', sans-serif;
       --font-body:    'Literata', Georgia, serif;
       --radius:    10px;
       --shadow-md: 0 4px 24px rgba(12,26,46,.09);
@@ -91,10 +91,11 @@
     .hero {
       position: relative;
       min-height: 100vh;
-      display: flex; align-items: center;
+      display: flex; align-items: center; justify-content: center;
       background: var(--ink);
       overflow: hidden;
       padding: 100px 5vw 80px;
+      text-align: center;
     }
     /* Geometric background */
     .hero-bg {
@@ -103,7 +104,8 @@
     .hero-bg svg { width: 100%; height: 100%; }
     .hero-content {
       position: relative; z-index: 2;
-      max-width: 700px;
+      max-width: 760px;
+      margin: 0 auto;
     }
     .hero-eyebrow {
       font-family: var(--font-display);
@@ -113,12 +115,14 @@
       text-transform: uppercase;
       color: var(--gold);
       margin-bottom: 20px;
-      display: flex; align-items: center; gap: 12px;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
     }
-    .hero-eyebrow::before {
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
       content: '';
       display: block; width: 32px; height: 2px;
       background: var(--gold);
+      flex-shrink: 0;
     }
     .hero h1 {
       font-family: var(--font-display);
@@ -138,8 +142,10 @@
       color: rgba(255,255,255,.68);
       margin-bottom: 36px;
       max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
     .btn {
       font-family: var(--font-display);
       font-size: .82rem;
@@ -174,6 +180,7 @@
       flex: 1;
       padding: 22px 24px;
       border-right: 1px solid rgba(255,255,255,.08);
+      text-align: center;
     }
     .hero-stat:last-child { border-right: none; }
     .hero-stat-num {
@@ -191,7 +198,7 @@
     /* ─── Section Wrapper ────────────────────────────── */
     .section { padding: 90px 5vw; }
     .section-inner { max-width: 1080px; margin: 0 auto; }
-    .section-header { margin-bottom: 56px; }
+    .section-header { margin-bottom: 56px; text-align: center; }
     .section-eyebrow {
       font-family: var(--font-display);
       font-size: .75rem;
@@ -215,6 +222,8 @@
     .section-desc {
       margin-top: 14px;
       max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
       color: var(--muted);
       font-size: .96rem;
     }
@@ -227,6 +236,7 @@
       gap: 56px;
       align-items: center;
     }
+    .about-text { text-align: center; }
     .about-text p {
       color: #3a4a5c;
       margin-bottom: 16px;
@@ -311,7 +321,7 @@
       border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
       font-size: 1.5rem;
-      margin-bottom: 18px;
+      margin: 0 auto 18px;
     }
     .c-blue .rc-icon  { background: var(--sky-light);  color: var(--sky); }
     .c-gold .rc-icon  { background: var(--gold-light); color: var(--gold); }
@@ -322,16 +332,19 @@
       font-weight: 700;
       margin-bottom: 10px;
       color: var(--ink);
+      text-align: center;
     }
-    .research-card p { font-size: .9rem; color: var(--muted); }
+    .research-card p { font-size: .9rem; color: var(--muted); text-align: center; }
 
     .research-cta {
       margin-top: 40px;
       background: linear-gradient(135deg, var(--sky) 0%, #0A5FA3 100%);
       border-radius: var(--radius);
       padding: 36px 40px;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 24px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
       flex-wrap: wrap;
     }
     .research-cta p {
@@ -606,7 +619,7 @@
     .divider {
       width: 48px; height: 3px;
       background: var(--gold);
-      margin: 14px 0 0;
+      margin: 14px auto 0;
       border-radius: 2px;
     }
 
@@ -693,7 +706,7 @@
     </p>
     <div class="hero-actions fade-up-4">
       <a href="#prototypes" class="btn btn-primary">Explore Prototypes</a>
-      <a href="mailto:aluyima@ndejjeuniversity.ac.ug" class="btn btn-outline">Get in Touch</a>
+      <a href="/cdn-cgi/l/email-protection#01606d7478686c60416f65646b6b64746f68776473726875782f60622f7466" class="btn btn-outline">Get in Touch</a>
     </div>
   </div>
 
@@ -735,8 +748,8 @@
           We are always open for exchange and cooperation — whether you are a researcher, student, 
           institution, or industry partner.
         </p>
-        <a href="mailto:aluyima@ndejjeuniversity.ac.ug" class="about-contact">
-          ✉ aluyima@ndejjeuniversity.ac.ug
+        <a href="/cdn-cgi/l/email-protection#a2c3ced7dbcbcfc3e2ccc6c7c8c8c7d7cccbd4c7d0d1cbd6db8cc3c18cd7c5" class="about-contact">
+          ✉ <span class="__cf_email__" data-cfemail="f2939e878b9b9f93b29c9697989897879c9b849780819b868bdc9391dc8795">[email&#160;protected]</span>
         </a>
       </div>
       <div class="about-visual">
@@ -805,7 +818,7 @@
 
     <div class="research-cta">
       <p><i>Interested in a Final Year Project at the AI Research Centre?</i></p>
-      <a href="mailto:aluyima@ndejjeuniversity.ac.ug" class="btn btn-primary">Contact Us</a>
+      <a href="/cdn-cgi/l/email-protection#7918150c0010141839171d1c13131c0c17100f1c0b0a100d0057181a570c1e" class="btn btn-primary">Contact Us</a>
     </div>
   </div>
 </section>
@@ -977,7 +990,7 @@
           Contact any member of the research team (see Team section) for details on 
           available topics and how to apply.
         </p>
-        <a href="mailto:aluyima@ndejjeuniversity.ac.ug" class="book-btn" style="background:var(--sage);">
+        <a href="/cdn-cgi/l/email-protection#92f3fee7ebfbfff3d2fcf6f7f8f8f7e7fcfbe4f7e0e1fbe6ebbcf3f1bce7f5" class="book-btn" style="background:var(--sage);">
           Express Interest →
         </a>
       </div>
@@ -1122,36 +1135,16 @@
     Faculty of Science &amp; Computing · Ndejje University, Uganda
   </p>
   <p>
-    <a href="mailto:aluyima@ndejjeuniversity.ac.ug">aluyima@ndejjeuniversity.ac.ug</a> &nbsp;·&nbsp;
+    <a href="/cdn-cgi/l/email-protection#b5d4d9c0ccdcd8d4f5dbd1d0dfdfd0c0dbdcc3d0c7c6dcc1cc9bd4d69bc0d2"><span class="__cf_email__" data-cfemail="b0d1dcc5c9d9ddd1f0ded4d5dadad5c5ded9c6d5c2c3d9c4c99ed1d39ec5d7">[email&#160;protected]</span></a> &nbsp;·&nbsp;
     &copy; 2026 Ndejje University. All Rights Reserved.
   </p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Navbar scroll shadow
   const nav = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 40);
   });
 
-  // Intersection Observer for subtle reveal animations on scroll
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.research-card, .proto-card, .team-card, .paper, .advice-card')
-    .forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'opacity .5s ease, transform .5s ease';
-      observer.observe(el);
-    });
-</script>
-
-</body>
-</html>
+  // Intersection Observer for subtle reveal animations
